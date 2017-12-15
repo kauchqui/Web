@@ -1,190 +1,109 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                <br>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('viewmaintenance') }}">Maintenance Requests</a>
+                    </li>
+                </ul>
+            </nav>
 
-    <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-            <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <script src="https://www.w3schools.com/lib/w3.js"></script>
-
-
-            <!-- Page Container -->
-            <div style="max-width:1400px;margin-top:80px">
-                {{--<div class="panel panel-default">--}}
-                    {{--<div class="panel-heading">Welcome! 🎉</div>--}}
-
-                    {{--<div class="panel-body">--}}
-                        {{--@if (session('status'))--}}
-                            {{--<div class="alert alert-success">--}}
-                                {{--{{ session('status') }}--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
-                        {{--You are logged in!--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                <div class="col-md-offset-5">
-                    <h1 class="w3-text-white">Dashboard</h1>
-                </div>
-                <!-- The Grid -->
-                <div class="w3-row">
-
-                    <!-- Left Column -->
-                    <div class="w3-col m3">
-                        <!-- Profile -->
-                        <div class="w3-container w3-card-2 w3-white w3-round w3-margin w3-xlarge" >
-                            <div class="w3-container" style="font-size: 15px">
-                                <h4 class="w3-center" style="font-size: 15px">{{Auth::user()->name}}</h4>
-                                <p class="w3-center" ><?php
-                                    \Cloudinary::config(array(
-                                        "cloud_name" => "dwunmryjy",
-                                        "api_key" => "392581967417787",
-                                        "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
-                                    ));
-                                    echo cl_image_tag(Auth::user()->user_profile, array("transformation"=>array(
-                                        array("width"=>106, "height"=>106, "radius"=>106),
-                                        array("width"=>106, "crop"=>"scale")
-                                    )));
-                                    ?></p>
-                                <hr>
+            <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                @php($total = DB::table('units')->sum('rent'))
+                @php($renters = DB::table('units')->count("renter"))
+                <h1>
+                    Dashboard
+                </h1>
+                    <hr>
+                    <br>
+                    <div>
+                        <section class="row text-center placeholders">
+                            <div class="col-6 col-sm-3 placeholder">
+                                <h5>Monthly Income:</h5>
+                                <div class="text-muted">${{number_format($total,'2')}}</div>
                             </div>
-                            <p>
-                                <a href="{{ route('changeProfile')}}" class= "btn btn-info">Change profile</a>
-                            </p>
-
-                        </div>
-                        <br>
-
-                        <!-- Accordion -->
-
-
-
-
-                        <!-- Interests -->
-
-
-                        <!-- Alert Box -->
-
-
-                        <!-- End Left Column -->
+                            <div class="col-6 col-sm-3 placeholder">
+                                <h5>Quarterly Income(Projected):</h5>
+                                <span class="text-muted">${{number_format($total*3,'2')}}</span>
+                            </div>
+                            <div class="col-6 col-sm-3 placeholder">
+                                <h5>Yearly Income(Projected):</h5>
+                                <span class="text-muted">${{number_format($total*12,'2')}}</span>
+                            </div>
+                            <div class="col-6 col-sm-3 placeholder">
+                                <h5>Number of Renters:</h5>
+                                <span class="text-muted">{{number_format($renters)}}</span>
+                            </div>
+                        </section>
                     </div>
+                    <br>
+                    <hr>
 
-                <?php
-
-                $total = DB::table('units')->sum('rent');
-
-                ?>
-
-                    <!-- Middle Column -->
-
-                    <div class="w3-col m7">
-
-                        <div class="w3-container w3-card-2 w3-white w3-round w3-margin w3-xlarge"><br>
-                            <ul>
-                                <li style="font-size: 15px"> Monthly Income: ${{$total}}</li>
-                                <li style="font-size: 15px"> Quarterly Income(Projected): ${{$total*3}}</li>
-                                <li style="font-size: 15px"> Yearly Income(Projected): ${{$total*12}}</li>
-                            </ul>
-
-                        </div>
-                        <div class="w3-container w3-card-2 w3-white w3-round w3-margin w3-xlarge"><br>
-                            <p>Properties </p>
-                            <img src= alt="sell" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                            <span class="w3-right w3-opacity"></span>
-
+                    <h2>Properties</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             @php ($properties =  DB::table('properties')->get())
-                                @foreach ($properties as $property)
-                                    @if (($property->user_id) === (Auth::user()->id) )
-                                    <a href="{{ route('manageproperty',['id' => $property->id]) }}" class="btn btn-info"> {{$property->name}} </a>
-                                        <br>
-                                    @endif
-                                @endforeach
+                            @foreach ($properties as $property)
+                                @if (($property->user_id) === (Auth::user()->id) )
 
-                            <br>
-
-                            <a href= "{{ url('addproperty') }}" class="btn btn-info"> Add a property 🏡</a>
-
-                            <hr class="w3-clear">
-
-                        </div>
-
-
-                        <!-- End Middle Column -->
+                                    <tr>
+                                        <td><a href="{{ route('manageproperty',['id' => $property->id]) }}">
+                                                {{$property->name}}</a></td>
+                                        <td>{{$property->address}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <a href= "{{ url('addproperty') }}" class="btn btn-info"> Add Property</a>
                     </div>
-
-                    <!-- Right Column -->
-                    <div class="w3-col m2">
-                        <div class="w3-container w3-card-2 w3-white w3-round w3-margin w3-xlarge" style="width:150%;">
-                        <div class="container" style="font-size: 15px">
-                                <p>Unit Maintenance</p>
-                                <p>
-                                    <a href="{{ route('viewmaintenance') }}" button type="submit" class="btn btn-info">View
-                                        requests</a>
-                                </p>
-                            </div>
+                <hr>
+                    <h2>Units</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Unit Number</th>
+                                    <th>Renter</th>
+                                    <th>Rent</th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
-                        <br>
-
-
-
-
-
-
-
-                        <!-- End Right Column -->
+                            <div class="table-responsive" style="overflow-y:auto;height: 500px">
+                                <table class="table table-striped">
+                            <tbody>
+                            @php($units = DB::table('units')->get())
+                            @foreach($units as $unit)
+                                <tr>
+                                    <td>{{$unit->name}}</td>
+                                    <td>{{$unit->renter}}</td>
+                                    <td>${{number_format($unit->rent,'2')}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-
-                    <!-- End Grid -->
-                </div>
-
-                <footer class="w3-container">
-                    <p class="w3-text-white" style="text-align: center">&copy; 2017 {{ config('app.name', 'Laravel') }}. All rights reserved.</p>
-                </footer>
-                <!-- End Page Container -->
-            </div>
-            <br>
-
-
-            <script>
-                w3.includeHTML();
-                // Accordion
-                function myFunction(id) {
-                    var x = document.getElementById(id);
-                    if (x.className.indexOf("w3-show") == -1) {
-                        x.className += " w3-show";
-                        x.previousElementSibling.className += " w3-theme-d1";
-                    } else {
-                        x.className = x.className.replace("w3-show", "");
-                        x.previousElementSibling.className =
-                            x.previousElementSibling.className.replace(" w3-theme-d1", "");
-                    }
-                }
-                // Used to toggle the menu on smaller screens when clicking on the menu button
-                function openNav() {
-                    var x = document.getElementById("navDemo");
-                    if (x.className.indexOf("w3-show") == -1) {
-                        x.className += " w3-show";
-                    } else {
-                        x.className = x.className.replace(" w3-show", "");
-                    }
-                }
-            </script>
-
-
-
-
-
-
+            </main>
         </div>
     </div>
-</div>
-
 
 @endsection
 
