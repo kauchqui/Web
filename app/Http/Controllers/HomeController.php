@@ -28,7 +28,7 @@ class HomeController extends Controller
             return view('home');
         }
         else if(Auth::user()->permissions == 2){
-            return Redirect('userhome');
+            return view('home');
         }
     }
 }

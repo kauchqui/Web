@@ -48,7 +48,7 @@ Route::get('expenses/{id}', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'UserHomeController@myform')->name('home');
 
 Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
 
