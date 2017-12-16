@@ -146,7 +146,7 @@
                 <img class="first-slide" src= "{{asset('img\old-house-hotel-exterior.jpg')}}" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption text-left">
-                        <div class="card" style="width: 20rem;background-color:rgba(0,0,0,0.75)">
+                        <div class="card" style="width: 20rem;background-color:rgba(0,0,0,0.75);border-style: none ">
                             <div class="card-body" >
                                 <h1>ManageIT</h1>
                                 @auth()
@@ -175,7 +175,7 @@
             </div>
             <div class="carousel-item">
                 <img class="second-slide" src="{{asset('img/house1.jpg')}}" alt="Second slide">
-                <div class="card" style="background-color:rgba(0,0,0,0.75)">
+                <div class="card" style="background-color:rgba(0,0,0,0.75);border-style: none ">
                     <div class="card-body" style="color: white">
                         <p>At {{ config('app.name', 'Laravel') }}, we strive to bring meaningful insight to your property-based
                             business. Our software gives you a clear view of you properties' capital expenditures, and more
