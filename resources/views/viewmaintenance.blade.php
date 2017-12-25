@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-8">
@@ -12,9 +11,10 @@
                             <p style="font-size:160%;">Property: {{$property->name}} </p>
                             <hr>
                             @foreach($buildings as $building)
-                                @if($building->property_id === $property->id)
+                                @php($reqcount = DB::table('units')->where('building_id',"$building->id")->count())
+                                @if($building->property_id === $property->id && $reqcount != 0)
                                     <p style="font-size:120%;"> {{$building->name}} </p>
-                                @endif
+
                                     <div class="table table-responsive" style="overflow-y:auto;">
                                         <table class="table table-striped">
                                             <thead class="thead-dark">
@@ -36,9 +36,6 @@
                                                                 ->where('personalunit','$unit->id')->pluck('email')}}
                                                                     </a></td>
                                                             </tr>
-                                                            {{--@else
-                                                            <a href="{{ route('manageunit',['id' => $request->id]) }}"> {{$unit->name}}: {{$request->maintenance}} {{"------requests resolved"}} </a>
-                                                            <br>--}}
                                                         @endif
                                                     @endif
                                                 @endforeach
@@ -46,7 +43,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                <hr>
+                                    <hr>
+                                @endif
+
                             @endforeach
                         @endforeach
                     </div>

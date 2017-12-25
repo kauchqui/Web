@@ -274,19 +274,11 @@
                 <img class="featurette-image img-fluid mx-auto" src="{{asset('img/house3.jpg')}}" alt="Generic placeholder image">
             </div>
         </div>
-
-        <hr class="featurette-divider">
-
         <!-- /END THE FEATURETTES -->
-
     </div><!-- /.container -->
 
 
     <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017 {{ config('app.name', 'Laravel') }}, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
 
 </main>
 
