@@ -155,7 +155,7 @@
 
                             {!! Form::open() !!}
 
-                            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 
 
                             <div class="form-group">
