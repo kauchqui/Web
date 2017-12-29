@@ -141,7 +141,11 @@
 
                                 @endif
                             @endforeach
+
+                            {{--todo: fix this form--}}
                         </div>
+
+
                         <form class="form-horizontal" method="POST" action="{{ route('updateUserUnit') }}">
                             {{ csrf_field() }}
 
