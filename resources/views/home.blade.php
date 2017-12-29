@@ -156,6 +156,7 @@
                             {!! Form::open() !!}
 
 
+                            <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
 
 
                             <div class="form-group">
