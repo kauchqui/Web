@@ -85,7 +85,7 @@ Route::post('updatedunit/{id}', 'RegisterUnit@updateUnits')->name('updateUnit');
 Route::post('updatedrequest/{id}', 'RegisterRequest@updateRequests')->name('updateRequest');
 
 Route::post('updateduser', 'UserHomeController@addUnit')->name('updateUserUnit');
-
+//changed to test selectbuild
 Route::post('select-building', ['as'=>'select-building','uses'=>'UserHomeController@selectBuilding']);
 
 Route::post('select-unit', ['as'=>'select-unit','uses'=>'UserHomeController@selectUnit']);

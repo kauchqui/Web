@@ -151,6 +151,9 @@
 
                             {!! Form::open() !!}
 
+                            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
                             <div class="form-group">
                                 <label for="property" class="col-md-4 control-label">Property</label>
                                 {!! Form::select('property_id',[''=>'--- Select Property ---']+$properties,null,['class'=>'form-control']) !!}
@@ -160,19 +163,58 @@
                             <div class="form-group">
                                 <label for="building" class="col-md-4 control-label">Building</label>
                                 {!! Form::select('building_id',[''=>'--- Select Building ---'],null,['class'=>'form-control']) !!}
+
                             </div>
 
                             <div class="form-group">
                                 <label for="unit" class="col-md-4 control-label">Unit</label>
-                                {!! Form::select('unit_id',[''=>'--- Select Unit ---'],null,
-                                ['class'=>'form-control']) !!}
+                                {!! Form::select('unit_id',[''=>'--- Select Unit ---'],null,['class'=>'form-control']) !!}
                             </div>
 
                             <div class="form-group">
                                 <button class="btn btn-success" type="submit">Submit</button>
                             </div>
 
+{{--
+                            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+--}}
+
+
+                            <script type="text/javascript">
+                                $("select[name='property_id']").change(function(){
+                                    var property_id = $(this).val();
+                                    var token = $("input[name='_token']").val();
+                                    $.ajax({
+                                        url: "<?php echo route('select-building') ?>",
+                                        method: 'POST',
+                                        data: {property_id:property_id, _token:token},
+                                        success: function(data) {
+                                            $("select[name='building_id']").html('');
+                                            $("select[name='building_id']").html(data.options);
+                                        }
+                                    });
+                                });
+                            </script>
+
+                            <script type="text/javascript">
+                                $("select[name='building_id']").change(function(){
+                                    var building_id = $(this).val();
+                                    var token = $("input[name='_token']").val();
+                                    $.ajax({
+                                        url: "<?php echo route('select-unit') ?>",
+                                        method: 'POST',
+                                        data: {building_id:building_id, _token:token},
+                                        success: function(data) {
+                                            $("select[name='unit_id']").html('');
+                                            $("select[name='unit_id']").html(data.options);
+                                        }
+                                    });
+                                });
+                            </script>
+
                             {!! Form::close() !!}
+
+
                         </form>
                     </div>
                 @endif
@@ -208,7 +250,7 @@
 @endsection
 
 @section('scripts')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  {{--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     <script type="text/javascript">
         $("select[name='property_id']").change(function(){
@@ -243,5 +285,6 @@
             });
         });
     </script>
+--}}
 @stop
 

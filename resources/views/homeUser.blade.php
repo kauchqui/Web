@@ -112,7 +112,7 @@
                                 <span class="w3-right w3-opacity"></span>
                                     <br>
 
-                                    {!! Form::open() !!}
+                                    {{--{!! Form::open() !!}
 
                                     <div class="form-group">
                                         <label for="property" class="col-md-4 control-label">Property</label>
@@ -127,15 +127,21 @@
 
                                     <div class="form-group">
                                         <label for="unit" class="col-md-4 control-label">Unit</label>
-                                        {!! Form::select('unit_id',[''=>'--- Select Unit ---'],null,
-                                        ['class'=>'form-control']) !!}
+                                        {!! Form::select('unit_id',[''=>'--- Select Unit ---'],null,['class'=>'form-control']) !!}
                                     </div>
 
                                     <div class="form-group">
                                         <button class="btn btn-success" type="submit">Submit</button>
                                     </div>
 
-                                    {!! Form::close() !!}
+                                    {!! Form::close() !!}--}}
+
+
+
+
+
+
+
                                 </form>
                             </div>
 

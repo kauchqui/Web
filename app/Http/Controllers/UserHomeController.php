@@ -82,6 +82,7 @@ class UserHomeController extends Controller
             return response()->json(['options'=>$data]);
         }
     }
+
     public function selectUnit(Request $request)
     {
         if($request->ajax()){

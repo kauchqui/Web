@@ -279,7 +279,9 @@
 
 
     <!-- FOOTER -->
+    <script type="text/javascript" src="{{ URL::asset('js/output/person.js') }}"></script>
 
 </main>
 
 @endsection
+
