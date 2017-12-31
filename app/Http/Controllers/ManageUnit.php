@@ -25,4 +25,5 @@ class ManageUnit
         return view('manageunit')->with('unit', $unit)->with('building', $building)->with('property', $property)->with('request', $request);
 
     }
+
 }
