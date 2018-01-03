@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Input;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -47,6 +48,10 @@ Route::get('expenses/{id}', function () {
 
 
 Auth::routes();
+
+Route::get('/threads/{thread}','ThreadController@show')->name('threads');
+
+Route::get('/threads','ThreadController@index')->name('threads');
 
 Route::get('/home', 'UserHomeController@myform')->name('home');
 
@@ -85,7 +90,7 @@ Route::post('updatedunit/{id}', 'RegisterUnit@updateUnits')->name('updateUnit');
 Route::post('updatedrequest/{id}', 'RegisterRequest@updateRequests')->name('updateRequest');
 
 Route::post('updateduser', 'UserHomeController@addUnit')->name('updateUserUnit');
-//changed to test selectbuild
+
 Route::post('select-building', ['as'=>'select-building','uses'=>'UserHomeController@selectBuilding']);
 
 Route::post('select-unit', ['as'=>'select-unit','uses'=>'UserHomeController@selectUnit']);
@@ -95,7 +100,4 @@ Route::get('updateMaintenanceRequest/{id}','UpdateMaintenance@changeStatus')->na
 Route::get('/changeProfile', 'ChangeProfile@create')->name('changeProfile');
 
 Route::post('/changeProfile', 'ChangeProfile@up')->name('changeProfilePicture');
-
-
-
 
