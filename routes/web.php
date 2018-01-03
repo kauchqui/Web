@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Input;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -45,19 +46,16 @@ Route::get('expenses/{id}', function () {
 
 });
 
-Route::get('/enroll', function () {
-    return view('auth.enroll');
-
-});
-
 
 Auth::routes();
 
-Route::get('/enroll', 'Enroll@create')->name('enroll');
+Route::get('/threads/{thread}','ThreadController@show')->name('threads');
+
+Route::get('/threads','ThreadController@index')->name('threads');
 
 Route::get('/home', 'UserHomeController@myform')->name('home');
 
-//Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
+Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
 
 Route::get('manageproperty/{id}', 'ManageProperty@create')->name('manageproperty');
 
@@ -73,7 +71,7 @@ Route::post('addmaintenance/{id}', 'MaintenanceRequest@create')->name('addmainte
 
 Route::get('addexpenses/{id}', 'updateExpenses@create')->name('addexpenses');
 
-//Route::get('userhome', 'UserHomeController@myform');
+Route::get('userhome', 'UserHomeController@myform');
 
 Route::get('viewmaintenance', 'ViewMaintenanceRequests@create')->name('viewmaintenance');
 
@@ -92,7 +90,7 @@ Route::post('updatedunit/{id}', 'RegisterUnit@updateUnits')->name('updateUnit');
 Route::post('updatedrequest/{id}', 'RegisterRequest@updateRequests')->name('updateRequest');
 
 Route::post('updateduser', 'UserHomeController@addUnit')->name('updateUserUnit');
-//changed to test selectbuild
+
 Route::post('select-building', ['as'=>'select-building','uses'=>'UserHomeController@selectBuilding']);
 
 Route::post('select-unit', ['as'=>'select-unit','uses'=>'UserHomeController@selectUnit']);
@@ -102,7 +100,4 @@ Route::get('updateMaintenanceRequest/{id}','UpdateMaintenance@changeStatus')->na
 Route::get('/changeProfile', 'ChangeProfile@create')->name('changeProfile');
 
 Route::post('/changeProfile', 'ChangeProfile@up')->name('changeProfilePicture');
-
-
-
 
