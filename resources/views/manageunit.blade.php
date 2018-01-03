@@ -25,8 +25,6 @@ use app\ManageUnit;
 
                             @foreach($mrequests as $mrequest)
                                 @if($mrequest->unit_id === $unit->id && $mrequest->status === 0)
-
-
                                     <?php \Cloudinary::config(array(
                                         "cloud_name" => "dwunmryjy",
                                         "api_key" => "392581967417787",
@@ -35,18 +33,10 @@ use app\ManageUnit;
                                     <span class="w3-tag w3-small w3-theme-d5">Unit Maintenance: {{$mrequest->maintenance}}  <a href="{{ route('updateMaintenanceRequest',['id' => $mrequest->id]) }}" button type="submit" class="btn btn-primary">Resolve</a></span>
                                     <span class="w3-tag w3-small w3-theme-d5">Picture:
                                         @php($pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all())
-                                        {{--@php($pictures->toArray())
-                                        --}}{{--@php(Log::info("Logging one variable: " . $pictures))
---}}
-                                        {{-- @php(
-                                        $pic = new \App\Http\Controllers\ManageUnit())
-                                        @php($pic -> images($mrequest->id)
-                                        )--}}
-                                        {{--{{\App\Http\Controllers\ManageUnit::images($pictures)}}--}}
+
                                         @foreach($pictures as $picture)
                                             @php(Log::info("Logging picture variable: " . $picture))
 
-                                            {{--@php($pname = $picture -> picture)--}}
                                         <?php echo cl_image_tag( $picture,
                                             array("transformation"=>array(array("width"=>110, "height"=>110,),array("width"=>106, "crop"=>"scale"))))
 
