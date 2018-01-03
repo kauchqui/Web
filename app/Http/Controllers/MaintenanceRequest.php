@@ -9,10 +9,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Unit;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mrequest;
+use App\pictureAdd;
+
 class MaintenanceRequest extends Controller
 {
     /*
@@ -24,33 +25,56 @@ class MaintenanceRequest extends Controller
 
     public function create(Request $request, $id)
     {
+        //todo create cloudinary config file and use a simple include statement.
         \Cloudinary::config(array(
             "cloud_name" => "dwunmryjy",
             "api_key" => "392581967417787",
             "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
         ));
 
-        $files = $request->file('picture');
-        $uploaded = \Cloudinary\Uploader::upload($files,array( "use_filename" => TRUE));
 
-
-       //DB::table('units')->where('id', '=', $id)->update(['maintenance'=>$request->maintenance]);
-
-       $request->session()->flash('status', 'Your maintenance request was submitted');
-
-        $mrequest = new Mrequest;
 
         $unit = DB::table('units')->where('id', '=', $id)->first();
 
+        //$mrequest creates a new maintenance request tuple
+
+        $mrequest = new Mrequest;
+
         $mrequest->unit_id = $unit->id;
 
-        $mrequest->renter = $uploaded['public_id'];
+        $mrequest->renter = $unit->renter;
 
         $mrequest->maintenance = $request->maintenance;
 
         $mrequest->status = false;
 
         $mrequest->save();
+
+        $lastID = DB::getPdo()->lastInsertId();
+
+
+        //for each picture we store it in the maintenancepictures relation
+
+        $files = $request->file('picture');
+        if($files != null) {
+            foreach ($files as $file) {
+                $uploaded = \Cloudinary\Uploader::upload($file, array("use_filename" => TRUE));
+
+
+                //todo test multiple picture input
+                //$uploaded['public_id'];
+
+                $pictureAdd = new pictureAdd;
+                $pictureAdd->unit_id = $unit->id;
+                $pictureAdd->picture = $uploaded['public_id'];
+                $pictureAdd->maintenance_id = $lastID;
+                $pictureAdd->save();
+
+            }
+        }
+
+
+       $request->session()->flash('status', 'Your maintenance request was submitted');
 
         return redirect('userhome');
 

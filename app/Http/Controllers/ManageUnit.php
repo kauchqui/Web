@@ -25,4 +25,11 @@ class ManageUnit
         return view('manageunit')->with('unit', $unit)->with('building', $building)->with('property', $property)->with('request', $request);
 
     }
+    public function images($unit){
+
+        $pictures = DB::table('maintenancepictures')->where('maintenance_id','=',$unit)->get();
+
+        return $pictures;
+
+    }
 }

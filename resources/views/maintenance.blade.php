@@ -22,7 +22,7 @@
                                 <label for="fileupload" class="col-md-4 control-label">Pictures of Maintenance to do</label>
 
                                 <div class="col-md-6">
-                                    <input id="fileupload" type="file" name="picture" multiple accept="image/gif, image/jpeg, image/png">
+                                    <input id="fileupload[]" type="file" name="picture[]" multiple accept="image/gif, image/jpeg, image/png">
 
                                 </div>
                             </div>
