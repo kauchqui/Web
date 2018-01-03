@@ -1,5 +1,5 @@
 # awesomeprojectnumberone
-Web-based app for property management / CS-370 project
+Web-based app for property management
 
 Contribution guidelines
 ---------------------------
