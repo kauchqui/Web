@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Register</div>
                     <div class="card-body">
-                        <form role="form" method="POST" action="{{ url('/register') }}">
+                        <form role="form" method="POST" action="{{ url('/enroll') }}">
                             {!! csrf_field() !!}
 
                             <div class="form-group row">
@@ -90,8 +90,8 @@
 
                                 <div class="col-lg-6">
                                     <select class="form-control" name="permissions">
-                                        <option value="1" >Property Owner</option>
-                                        <option value="2" >Property User</option>
+                                        <option value="3" >Maintenance Staff</option>
+                                        <option value="4" >Property Agent</option>
                                     </select>
                                 </div>
                             </div>

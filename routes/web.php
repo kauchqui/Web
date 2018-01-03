@@ -45,12 +45,19 @@ Route::get('expenses/{id}', function () {
 
 });
 
+Route::get('/enroll', function () {
+    return view('auth.enroll');
+
+});
+
 
 Auth::routes();
 
+Route::get('/enroll', 'Enroll@create')->name('enroll');
+
 Route::get('/home', 'UserHomeController@myform')->name('home');
 
-Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
+//Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
 
 Route::get('manageproperty/{id}', 'ManageProperty@create')->name('manageproperty');
 
@@ -66,7 +73,7 @@ Route::post('addmaintenance/{id}', 'MaintenanceRequest@create')->name('addmainte
 
 Route::get('addexpenses/{id}', 'updateExpenses@create')->name('addexpenses');
 
-Route::get('userhome', 'UserHomeController@myform');
+//Route::get('userhome', 'UserHomeController@myform');
 
 Route::get('viewmaintenance', 'ViewMaintenanceRequests@create')->name('viewmaintenance');
 

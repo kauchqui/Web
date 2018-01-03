@@ -28,6 +28,8 @@
                 @endforeach
                     <br>
                 <a href="{{ url('addbuilding',['id' => $property->id]) }}" class="btn btn-info"> Add a Building >></a>
+
+                    <a href="{{ route('enroll')}}" class="btn btn-info">  Add new Maintenance Staff >></a>
                 </div>
                 </div>
             </div>
