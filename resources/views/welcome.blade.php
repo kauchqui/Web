@@ -277,11 +277,7 @@
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 
-
-    <!-- FOOTER -->
-    <script type="text/javascript" src="{{ URL::asset('js/output/person.js') }}"></script>
-
 </main>
-
+<br>
 @endsection
 

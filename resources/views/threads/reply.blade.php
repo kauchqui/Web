@@ -1,8 +1,8 @@
-<div class="panel panel-default">
-    <div class ="panel-heading">
+<div class="card">
+    <div class ="card-header">
         <a href="#">{{$reply->owner->name}}</a> replied {{$reply->created_at->diffForHumans()}}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {{$reply->body}}
     </div>
 </div>
