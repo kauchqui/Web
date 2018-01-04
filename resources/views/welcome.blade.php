@@ -169,7 +169,8 @@
                                     <a class="btn btn-lg btn-primary" href="{{ URL::route('register')}}" role="button">Sign up today</a>
                                         <a class="btn btn-lg btn-primary" href="{{ URL::route('login')}}" role="button">Login</a>
                                         <a class="btn btn-lg btn-primary" href="{{ URL::route('about')}}" role="button">About Us</a>
-                                @endguest
+
+                                    @endguest
 
                         </p>
                     </div>

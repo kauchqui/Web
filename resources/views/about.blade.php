@@ -173,44 +173,21 @@
 <div class="w3-container w3-white">
     <h2 class="w3-myfont w3-center">Meet the team</h2>
     <ul class="w3-ul w3-card-4 w3-round">
-        <li class="w3-bar w3-white">
-            <img src={{asset('img/avatar1.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-            <div class="w3-bar-item">
-                <span class="w3-large">Xinyi Jiang</span><br>
-            </div>
-        </li>
 
         <li class="w3-bar">
             <img src= {{asset('img/avatar2.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
             <div class="w3-bar-item">
-                <span class="w3-large">James Martin</span><br>
+                <span class="w3-large">James Martin: Current student at Emory University and Co-Founder of ManageIT.</span><br>
             </div>
         </li>
 
         <li class="w3-bar">
-            <img src= {{asset('img/avatar3.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-            <div class="w3-bar-item">
-                <span class="w3-large">Catherine Xiao</span><br>
-            </div>
-        </li>
-        <li class="w3-bar">
-            <img src= {{asset('img/avatar4.png')}}  class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-            <div class="w3-bar-item">
-                <span class="w3-large">Tony Kang</span><br>
-            </div>
-        </li>
-        <li class="w3-bar">
             <img src= {{asset('img/avatar5.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
             <div class="w3-bar-item">
-                <span class="w3-large">Quintin Kauchick</span><br>
+                <span class="w3-large">Quintin Kauchick: Current student at Emory University and Co-Founder of ManageIT.</span><br>
             </div>
         </li>
-        <li class="w3-bar">
-            <img src= {{asset('img/avatar6.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-            <div class="w3-bar-item">
-                <span class="w3-large">Owen Handel</span><br>
-            </div>
-        </li>
+
     </ul>
 </div>
 <!-- About Me section end -->
@@ -241,11 +218,11 @@
 <div id = "info2" class="w3-container sand w3-xlarge w3-serif w3-panel w3-white w3-round-xlarge" style="padding: 5%">
     <h1 class="w3-xxlarge">What we do</h1>
 
-            <p>At {{ config('app.name', 'Laravel') }}, we strive to bring meaningful insight to your property-based
-                business. Our software gives you a clear view of you properties' capital expenditures, and more
-                importantly, gives you meaningful feedback about how to plan the future. Whether you just want to
-                improve maintenance or build additions, you can know exactly how much it is going to cost, which
-                helps you avoid the hassle of unforeseen costs. Don't guess about your property -- {{ config('app.name','Laravel') }}
+            <p>At {{ config('app.name', 'Laravel') }}, we strive to constantly improve our software to reach your management needs.
+                Our software gives you a clear and concise roll up of historical maintenance, user functionality for submitting maintenance requests,
+                and a forum where your staff can collaborate with others across the country to facilitate your maintenance needs. Whether you just want to
+                improve maintenance or build additions, you can know what has happened and what still needs to be done. With this functionality we can guarantee you will
+                avoid the hassle of unforeseen costs. Don't guess about your property -- {{ config('app.name','Laravel') }}
                 .&nbsp;</p>
 
 </div>
@@ -254,7 +231,9 @@
 <!-- Form section start -->
 
 
-<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey  w3-margin w3-text-gray w3-round" style="padding: 3%">
+<form action="{{route('sendEmail')}}" method="POST" class="w3-container w3-card-4 w3-light-grey  w3-margin w3-text-gray w3-round" style="padding: 3%">
+    {{ csrf_field() }}
+
     <h2 class="w3-center">Contact Us</h2>
 
     <div class="w3-row w3-section">

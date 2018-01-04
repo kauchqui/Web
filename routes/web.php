@@ -18,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/send','AboutEmailController@sendEmail',function(){
+    return view('about');
+})->name('sendEmail');
+
 Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
 
 Route::get('/profile', function () {
     return view('profile');
