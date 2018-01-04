@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    protected $table = 'Threads';
+    protected $table = 'threads';
     protected $connection = 'mysql';
 
     public function user()
