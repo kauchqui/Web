@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     @php($auth = Auth::user()->permissions)
 
     <div class="container-fluid">
@@ -102,17 +103,19 @@
                     <hr>
 
                 @if($auth == 1)
+                    @php ($properties =  DB::table('properties')->get())
+                    @if($properties->count() != 0)
                     <h2>Properties</h2>
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead>
+                            <thead class="thead-dark">
                             <tr>
                                 <th>Property</th>
                                 <th>Address</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @php ($properties =  DB::table('properties')->get())
+
                             @foreach ($properties as $property)
                                 @if (($property->user_id) === (Auth::user()->id) )
 
@@ -125,8 +128,13 @@
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                        @endif
+                    <div>
                         <a href= "{{ url('addproperty') }}" class="btn btn-info"> Add Property</a>
                     </div>
+
+
                 @endif
                 @if($auth == 2)
                     <p>My Unit</p>
@@ -227,7 +235,89 @@
 
                 {{--maintenance staff--}}
                 @if($auth == 3)
+                    <p>My Property</p>
+                    <div class="card"><br>
+                        <div class="card-body">
+                            <p>My Property</p>
+                            @php ($properties =  DB::table('properties')->get())
+                            @foreach ($properties as $property)
+                                @if(($property->id) === (Auth::user()->personalproperty) )
+                                    <a class="btn btn-info" href="{{ route('manageunit',['id' => $unit->id])
+                                            }}">
+                                        {{$unit->name}} </a>
 
+                                @endif
+                            @endforeach
+
+                            {{--todo: speed up this form--}}
+                        </div>
+
+
+                        <form class="form-horizontal" method="POST" action="{{ route('updateUserUnit') }}">
+                            {{ csrf_field() }}
+
+                            <br>
+                            <span class="w3-right w3-opacity"></span>
+                            <br>
+
+                            {!! Form::open() !!}
+
+
+                            <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+                            <div class="form-group">
+                                <label for="property" class="col-md-4 control-label">Property</label>
+                                {!! Form::select('property_id',[''=>'--- Select Property ---']+$properties,null,['class'=>'form-control']) !!}
+                            </div>
+
+
+                            <div class="form-group">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+
+                            {{--
+                                                        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+                            --}}
+
+
+                            <script type="text/javascript">
+                                $("select[name='property_id']").change(function(){
+                                    var property_id = $(this).val();
+                                    var token = $("input[name='_token']").val();
+                                    $.ajax({
+                                        url: "<?php echo route('select-building') ?>",
+                                        method: 'POST',
+                                        data: {property_id:property_id, _token:token},
+                                        success: function(data) {
+                                            $("select[name='building_id']").html('');
+                                            $("select[name='building_id']").html(data.options);
+                                        }
+                                    });
+                                });
+                            </script>
+
+                            <script type="text/javascript">
+                                $("select[name='building_id']").change(function(){
+                                    var building_id = $(this).val();
+                                    var token = $("input[name='_token']").val();
+                                    $.ajax({
+                                        url: "<?php echo route('select-unit') ?>",
+                                        method: 'POST',
+                                        data: {building_id:building_id, _token:token},
+                                        success: function(data) {
+                                            $("select[name='unit_id']").html('');
+                                            $("select[name='unit_id']").html(data.options);
+                                        }
+                                    });
+                                });
+                            </script>
+
+                            {!! Form::close() !!}
+
+
+                        </form>
+                    </div>
                 @endif
 
                 @if($auth == 1)

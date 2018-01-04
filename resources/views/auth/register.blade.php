@@ -92,6 +92,7 @@
                                     <select class="form-control" name="permissions">
                                         <option value="1" >Property Owner</option>
                                         <option value="2" >Property User</option>
+                                        <option value="3" >Maintenance Staff</option>
                                     </select>
                                 </div>
                             </div>
