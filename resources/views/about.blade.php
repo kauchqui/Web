@@ -279,7 +279,7 @@
 <div class="section" id="contacts">
     <h1><span>Follow Us</span></h1>
     <div>
-        <a href="https://github.com/debuggers-370" target="_blank">
+        <a href="https://github.com/kauchqui/Web/" target="_blank">
             <img alt="github" src="../../img/GitHub-Mark-32px.png" />
         </a>
     </div>
