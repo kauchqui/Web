@@ -26,7 +26,7 @@
                             <a class="nav-link" href="{{ route('threads') }}">Forum</a>
                         </li>
                     @endif
-                    @if($auth ==2)
+                    @if($auth == 2)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('maintenance',['id' => Auth::user()->personalunit]) }}">Request Maintenance</a>
                         </li>
@@ -36,12 +36,18 @@
                         </li>
 
                     @endif
+                    @if($auth == 3)
+                        @php($rcount = DB::table('requests')->where('status','0')->count())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('viewmaintenance') }}">Maintenance @if($rcount > 0)
+                                    ({{$rcount}})@endif
+                            </a>
+                        </li>
+                        @endif
                 </ul>
             </nav>
 
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-                @php($total = DB::table('units')->sum('rent'))
-                @php($renters = DB::table('units')->count("renter"))
                 <h1>
                     Dashboard
                 </h1>
@@ -50,6 +56,10 @@
                     <div>
                         <section class="row text-center placeholders">
                             @if($auth == 1)
+
+                                @php($total = DB::table('units')->sum('rent'))
+                                @php($renters = DB::table('units')->count("renter"))
+
                             <div class="col-6 col-sm-3 placeholder">
                                 <h5>Monthly Income:</h5>
                                 <div class="text-muted">${{number_format($total,'2')}}</div>
@@ -96,6 +106,32 @@
                                         ?>
                                     @endif
                                 </div>
+                                @endif
+
+                                @if($auth == 3)
+                                    @php($requests = DB::table('requests')->count("id"))
+                                    @php($res = DB::table('requests')->where('status','=','1')->count("id"))
+                                    @php($unres = DB::table('requests')->where('status','=','0')->distinct()
+                                    ->count("id"))
+                                {{--todo: make this only query the number of renters on the staffs property--}}
+                                    @php($renters = DB::table('units')->count("renter"))
+
+                                    <div class="col-6 col-sm-3 placeholder">
+                                        <h5>All-time Requests Made:</h5>
+                                        <div class="text-muted">{{number_format($requests)}}</div>
+                                    </div>
+                                    <div class="col-6 col-sm-3 placeholder">
+                                        <h5>All-time Requests Resolved:</h5>
+                                        <span class="text-muted">{{number_format($res)}}</span>
+                                    </div>
+                                    <div class="col-6 col-sm-3 placeholder">
+                                        <h5>Percentage of Units with Open Requests:</h5>
+                                        <span class="text-muted">{{number_format($unres/(float)$renters,'3')}}%</span>
+                                    </div>
+                                    <div class="col-6 col-sm-3 placeholder">
+                                        <h5>Number of Renters:</h5>
+                                        <span class="text-muted">{{number_format($renters)}}</span>
+                                    </div>
                                 @endif
                         </section>
                     </div>
@@ -234,92 +270,6 @@
                 @endif
 
                 {{--maintenance staff--}}
-                @if($auth == 3)
-                    <p>My Property</p>
-                    <div class="card"><br>
-                        <div class="card-body">
-                            <p>My Property</p>
-                            @php ($properties =  DB::table('properties')->get())
-                            @foreach ($properties as $property)
-                                @if(($property->id) === (Auth::user()->personalproperty) )
-                                    <a class="btn btn-info" href="{{ route('manageunit',['id' => $unit->id])
-                                            }}">
-                                        {{$unit->name}} </a>
-
-                                @endif
-                            @endforeach
-
-                            {{--todo: speed up this form--}}
-                        </div>
-
-
-                        <form class="form-horizontal" method="POST" action="{{ route('updateUserUnit') }}">
-                            {{ csrf_field() }}
-
-                            <br>
-                            <span class="w3-right w3-opacity"></span>
-                            <br>
-
-                            {!! Form::open() !!}
-
-
-                            <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
-
-
-                            <div class="form-group">
-                                <label for="property" class="col-md-4 control-label">Property</label>
-                                {!! Form::select('property_id',[''=>'--- Select Property ---']+$properties,null,['class'=>'form-control']) !!}
-                            </div>
-
-
-                            <div class="form-group">
-                                <button class="btn btn-success" type="submit">Submit</button>
-                            </div>
-
-                            {{--
-                                                        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-                            --}}
-
-
-                            <script type="text/javascript">
-                                $("select[name='property_id']").change(function(){
-                                    var property_id = $(this).val();
-                                    var token = $("input[name='_token']").val();
-                                    $.ajax({
-                                        url: "<?php echo route('select-building') ?>",
-                                        method: 'POST',
-                                        data: {property_id:property_id, _token:token},
-                                        success: function(data) {
-                                            $("select[name='building_id']").html('');
-                                            $("select[name='building_id']").html(data.options);
-                                        }
-                                    });
-                                });
-                            </script>
-
-                            <script type="text/javascript">
-                                $("select[name='building_id']").change(function(){
-                                    var building_id = $(this).val();
-                                    var token = $("input[name='_token']").val();
-                                    $.ajax({
-                                        url: "<?php echo route('select-unit') ?>",
-                                        method: 'POST',
-                                        data: {building_id:building_id, _token:token},
-                                        success: function(data) {
-                                            $("select[name='unit_id']").html('');
-                                            $("select[name='unit_id']").html(data.options);
-                                        }
-                                    });
-                                });
-                            </script>
-
-                            {!! Form::close() !!}
-
-
-                        </form>
-                    </div>
-                @endif
-
                 @if($auth == 1)
                 <hr>
                     <h2>Units</h2>

@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-use app\ManageUnit;
-
 @section('content')
     <div class="container">
         <div class="row justify-content-md-center mt-5">
@@ -30,8 +28,14 @@ use app\ManageUnit;
                                         "api_key" => "392581967417787",
                                         "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
                                     ));?>
-                                    <span class="w3-tag w3-small w3-theme-d5">Unit Maintenance: {{$mrequest->maintenance}}  <a href="{{ route('updateMaintenanceRequest',['id' => $mrequest->id]) }}" button type="submit" class="btn btn-primary">Resolve</a></span>
-                                    <span class="w3-tag w3-small w3-theme-d5">Picture:
+                                <hr>
+                                    <span class="w3-tag w3-small w3-theme-d5">Maintenance Description:
+                                        <p>
+                                           {{$mrequest->maintenance}}
+                                        </p>
+                                    </span>
+
+                                    <p class="w3-tag w3-small w3-theme-d5">Picture:
                                         @php($pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all())
 
                                         @foreach($pictures as $picture)
@@ -41,9 +45,14 @@ use app\ManageUnit;
                                             array("transformation"=>array(array("width"=>110, "height"=>110,),array("width"=>106, "crop"=>"scale"))))
 
                                             ?>
+
+                                        <div>
+                                            <a href="{{ route('updateMaintenanceRequest',['id' => $mrequest->id]) }}" button type="submit" class="btn btn-primary">Resolve</a>
+                                        </div>
+
                                         @endforeach
                                             @endif
-                                    </span>
+                                    </p>
 
                                     <br>
 

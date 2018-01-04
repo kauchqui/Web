@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @php($auth = Auth::user()->permissions)
+    @if($auth == 3)
+        @php($staff = Auth::user())
+        @php($properties = DB::table('properties')->where('id',"$staff->personalproperty")->get())
+        @endif
+
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-8">
