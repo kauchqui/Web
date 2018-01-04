@@ -175,14 +175,14 @@
     <ul class="w3-ul w3-card-4 w3-round">
 
         <li class="w3-bar">
-            <img src= {{asset('img/avatar2.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+            <img src= {{asset('img/avatar5.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
             <div class="w3-bar-item">
                 <span class="w3-large">James Martin: Current student at Emory University and Co-Founder of ManageIT.</span><br>
             </div>
         </li>
 
         <li class="w3-bar">
-            <img src= {{asset('img/avatar5.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+            <img src= {{asset('img/avatar3.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
             <div class="w3-bar-item">
                 <span class="w3-large">Quintin Kauchick: Current student at Emory University and Co-Founder of ManageIT.</span><br>
             </div>
