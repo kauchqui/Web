@@ -162,12 +162,15 @@
                         <p>
                                 @auth()
                                 <a class="btn btn-lg btn-primary" href="{{ URL::route('home')}}" role="button">Go to Dashboard</a>
+                                <a class="btn btn-lg btn-primary" href="{{ URL::route('about')}}" role="button">About Us</a>
 
                                 @endauth
                                 @guest()
                                     <a class="btn btn-lg btn-primary" href="{{ URL::route('register')}}" role="button">Sign up today</a>
                                         <a class="btn btn-lg btn-primary" href="{{ URL::route('login')}}" role="button">Login</a>
-                                @endguest
+                                        <a class="btn btn-lg btn-primary" href="{{ URL::route('about')}}" role="button">About Us</a>
+
+                                    @endguest
 
                         </p>
                     </div>
