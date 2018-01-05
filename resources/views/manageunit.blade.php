@@ -36,6 +36,7 @@
                                     </span>
 
                                     <p class="w3-tag w3-small w3-theme-d5">Picture:
+                                    @php(//todo extract to controller)
                                         @php($pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all())
 
                                         @foreach($pictures as $picture)
