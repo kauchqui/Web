@@ -32,7 +32,15 @@ class MaintenanceRequest extends Controller
             "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
         ));
 
+        //todo finish setting up automatic email to staff.
 
+/*
+        $matchThese = ['permissions' => 3, '' => 'another_value', ...];
+
+
+        $staff = DB::table('users')->select(['email'])->where('permissions','=',3)
+
+            $pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all()*/
 
         $unit = DB::table('units')->where('id', '=', $id)->first();
 
@@ -72,6 +80,8 @@ class MaintenanceRequest extends Controller
 
             }
         }
+
+
 
 
        $request->session()->flash('status', 'Your maintenance request was submitted');
