@@ -80,3 +80,4 @@ webpack.mix.js
 yarn.lock
 _ide_helper.php
 
+/resources/views/threads/TestAppl.blade.php
