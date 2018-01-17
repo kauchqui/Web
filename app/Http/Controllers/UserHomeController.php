@@ -61,7 +61,9 @@ class UserHomeController extends Controller
     }
     public function myform()
     {
-        $properties = DB::table('properties')->pluck("name","id")->all();
+        $user = Auth::user();
+
+        $properties = DB::table('properties')->where('user_id', '=',$user->id)->pluck("name","id")->all();
         return view('home',compact('properties'));
     }
 

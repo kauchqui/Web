@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\DB;
 use App\Mrequest;
 use App\pictureAdd;
 
+use Log;
+use Mail;
+
 class MaintenanceRequest extends Controller
 {
     /*
@@ -81,12 +84,43 @@ class MaintenanceRequest extends Controller
             }
         }
 
+        $user = Auth::user();
+        $property = $user->personalproperty;
+        $staff = DB::table('assignedproperty')->where('property_id','=',$property)->pluck('staff_email')->all();
+        foreach($staff as $employee){
+            Log::info('Shows $request->maintenance that will be sent to sendEmail method '.$request->maintenance);
+            Log::info('Shows $unit->name that will be sent to sendEmail method '.$unit->name);
+
+
+            $this->sendEmail($request, $employee,$unit);
+        }
 
 
 
        $request->session()->flash('status', 'Your maintenance request was submitted');
 
         return redirect('userhome');
+
+    }
+
+    public function sendEmail(Request $request, $employee,$unit)
+    {
+        $issue = $request->maintenance;
+        $unitNumber = $unit->name;
+        $unitBuilding = $unit->building_id;
+
+        Log::info('Showing employee email that will receive mrequest '.$employee);
+
+
+        /* $data = $request->all();*/
+
+        Log::info('Showing unumber in content '.$unitNumber);
+        Log::info('Showing issue in content '.$issue);
+        Mail::send(['html'=>'mrequestEmail'], ['content'=>$issue,'UNumber'=>$unitNumber,'UBuilding'=>$unitBuilding], function ($message) use ($employee) {
+            $message->to($employee, 'To ManageIT')->subject('New Maintenance Request');
+            $message->from('manageitteam1@gmail.com', 'ManageIT');
+        });
+        $request->session()->flash('status', 'Your request was submitted');
 
     }
 
