@@ -35,8 +35,6 @@ class MaintenanceRequest extends Controller
             "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
         ));
 
-        //todo finish setting up automatic email to staff.
-
 /*
         $matchThese = ['permissions' => 3, '' => 'another_value', ...];
 
