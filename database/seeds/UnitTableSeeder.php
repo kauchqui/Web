@@ -13,10 +13,10 @@ class UnitTableSeeder extends Seeder
     {
         $exist = DB::table('units')->max('id');
         $count = 1;
-        while ($count <= 1000) {
+        while ($count <= 1742) {
             DB::table('units')->insert([
                 'id' => $count + $exist,
-                'building_id' => '1',
+                'building_id' => random_int(1,2), //randomly assign to building 1 or 2, can modify for testing
                 'name' => random_int(0, 9).random_int(0,4) . '0' . random_int(0, 9),
                 'renter' => 'emorystudent' . str_random(2),
                 'file' => str_random(10),

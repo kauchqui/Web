@@ -24,13 +24,6 @@ class CreateUsersTable extends Migration
             $table->integer('personalunit')->default(0);
             $table->integer('personalbuilding')->default(0);
             $table->integer('personalproperty')->default(0);
-            $table->string('interests')->default("No current interests");
-            $table->string('interests1')->default(" ");
-            $table->string('interests2')->default(" ");
-            $table->string('interests3')->default(" ");
-            $table->string('interests4')->default(" ");
-            $table->string('interests5')->default(" ");
-            $table->string('shoppingcart')->default("Shopping cart is empty");
             $table->rememberToken();
             $table->timestamps();
 
