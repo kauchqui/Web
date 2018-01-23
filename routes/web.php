@@ -65,6 +65,8 @@ Route::get('expenses/{id}', function () {
 
 Auth::routes();
 
+
+
 Route::get('/threads/{thread}','ThreadController@show')->name('threads');
 
 Route::get('/threads','ThreadController@index')->name('threads');
