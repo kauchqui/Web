@@ -4,6 +4,7 @@
 
     @php($auth = Auth::user()->permissions)
 
+
     <div class="container-fluid">
         <div class="row">
             <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
@@ -274,9 +275,11 @@
 
                 @if($auth == 1)
                 <hr>
+                    <div class = "card">
+                        <div class = "card-body">
                     <h2>Units</h2>
 
-                    <div class="table table-responsive" style="overflow-y:auto;height: 500px">
+                    <div class="table table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                             <tr>
@@ -296,6 +299,76 @@
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2>Employees</h2>
+                    @php($employees = DB::table('users')->distinct()->select('assignedproperty.user_id as UID')->join('properties','properties.user_id','=','users.id')->join('assignedproperty', 'properties.id','=','assignedproperty.property_id')->where('users.id','=',Auth::user()->id)->get())
+
+                    <div class = "card">
+                        <div class = "card-body">
+
+                            <div class="table table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Properties</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($employees as $employee)
+                                                @php($staffInfo = DB::table('users')->where('id','=',$employee->UID)->first())
+                                                @php($assigned = DB::table('assignedproperty')->select('properties.name as Name')->join('properties','properties.id','=','assignedproperty.property_id')->where('assignedproperty.user_id','=',$employee->UID)->get())
+                                                @if($staffInfo->permissions == 3)
+                                                    @php($role = "Maintenance")
+                                                @else
+                                                    @php($role = "Admin")
+                                                @endif
+                                                @php($key = 0)
+                                        <tr>
+
+                                            <td>{{$staffInfo->name}}</td>
+                                            <td>{{$staffInfo->email}}</td>
+                                            <td>{{$role}}</td>
+                                            <td>
+                                            @foreach($assigned as $assign)
+
+                                                @php(Log::info('Showing assign'.$assign->Name))
+
+                                                @if($key === 0)
+                                                    {{$assign->Name}}
+                                                    @php($key = 1)
+                                                @else
+                                                    / {{$assign->Name}}
+
+                                                @endif
+
+                                            @endforeach
+                                            </td>
+                                            <td>  <a href= "{{ route('ManageUserForm',['user'=>$employee->UID]) }}" class="btn btn-info"> Update</a>
+                                            </td>
+                                            <td>
+                                                {{-- <a href="{{ route('DeleteUser',['user'=>$employee->UID]) }}" class="btn btn-outline-danger float-right">Delete</a>--}}
+
+                                                <a href="{{ route('home') }}" class="btn btn-outline-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            <hr>
+
+                        </div>
+
                     </div>
                 @endif
             </main>

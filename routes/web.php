@@ -121,3 +121,11 @@ Route::get('/changeProfile', 'ChangeProfile@create')->name('changeProfile');
 
 Route::post('/changeProfile', 'ChangeProfile@up')->name('changeProfilePicture');
 
+Route::get('/userUpdate/{user}', 'ManageUser@create')->name('ManageUserForm');
+
+Route::get('/deleteUser/{user}', 'ManageUser@delete')->name('DeleteUser');
+
+Route::post('/updateUser/{user}', 'updateUser@update')->name('updateUser');
+
+
+
