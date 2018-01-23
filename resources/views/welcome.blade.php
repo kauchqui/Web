@@ -139,7 +139,7 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
+            {{--<li data-target="#myCarousel" data-slide-to="2"></li>--}}
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -178,27 +178,31 @@
             </div>
             <div class="carousel-item">
                 <img class="second-slide" src="{{asset('img/house1.jpg')}}" alt="Second slide">
-                <div class="card" style="background-color:rgba(0,0,0,0.75);border-style: none ">
-                    <div class="card-body" style="color: white">
-                        <p>At {{ config('app.name', 'Laravel') }}, we strive to bring meaningful insight to your property-based
-                            business. Our software gives you a clear view of you properties' capital expenditures, and more
-                            importantly, gives you meaningful feedback about how to plan the future. Whether you just want to
-                            improve maintenance or build additions, you can know exactly how much it is going to cost, which
-                            helps you avoid the hassle of unforeseen costs. Don't guess about your property -- {{ config('app.name','Laravel') }}
-                            .&nbsp;</p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="third-slide" src="{{asset('img/house1.jpg')}}" alt="Third slide">
+                <br>
                 <div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    <div class="card" style="background-color:rgba(0,0,0,0.75);border-style: none ">
+                        <div class="card-body" style="color: white">
+                            <p>At {{ config('app.name', 'Laravel') }}, we strive to bring meaningful insight to your property-based
+                                business. Our software gives you a clear view of you properties' capital expenditures, and more
+                                importantly, gives you meaningful feedback about how to plan the future. Whether you just want to
+                                improve maintenance or build additions, you can know exactly how much it is going to cost, which
+                                helps you avoid the hassle of unforeseen costs. Don't guess about your property -- {{ config('app.name','Laravel') }}
+                                .&nbsp;</p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                        </div>
                     </div>
                 </div>
+
             </div>
+            {{--<div class="carousel-item">--}}
+                {{--<img class="third-slide" src="{{asset('img/house1.jpg')}}" alt="Third slide">--}}
+                {{--<div class="container">--}}
+                    {{--<div class="carousel-caption text-right">--}}
+                        {{--<h1>One more for good measure.</h1>--}}
+                        {{--<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>--}}
+                        {{--<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

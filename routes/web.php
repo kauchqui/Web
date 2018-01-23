@@ -14,6 +14,18 @@
 use Illuminate\Support\Facades\Input;
 
 
+
+//Testing
+
+Route::get('/appliances', function(){
+    return view('threads.TestAppl');
+});
+
+Route::get('report/{id}', 'ReportController@generate')->name('report');
+
+
+//
+
 Route::get('/', function () {
     return view('welcome');
 });

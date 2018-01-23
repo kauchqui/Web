@@ -28,7 +28,7 @@
                                         "api_key" => "392581967417787",
                                         "api_secret" => "Gfvlo-MD4baaYC877MUuglXCVsM"
                                     ));?>
-                                <hr>
+                                    <hr>
                                     <span class="w3-tag w3-small w3-theme-d5">Maintenance Description:
                                         <p>
                                            {{$mrequest->maintenance}}
@@ -36,27 +36,26 @@
                                     </span>
 
                                     <p class="w3-tag w3-small w3-theme-d5">Picture:
-                                    @php(//todo extract to controller)
-                                        @php($pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all())
 
-                                        @foreach($pictures as $picture)
-                                            @php(Log::info("Logging picture variable: " . $picture))
+                                    @php($pictures = DB::table('maintenancepictures')->select(['picture'])->where('maintenance_id','=',$mrequest->id)->pluck('picture')->all())
+
+                                    @foreach($pictures as $picture)
+                                        @php(Log::info("Logging picture variable: " . $picture))
 
                                         <?php echo cl_image_tag( $picture,
                                             array("transformation"=>array(array("width"=>110, "height"=>110,),array("width"=>106, "crop"=>"scale"))))
 
-                                            ?>
+                                        ?>
 
                                         <div>
                                             <a href="{{ route('updateMaintenanceRequest',['id' => $mrequest->id]) }}" button type="submit" class="btn btn-primary">Resolve</a>
                                         </div>
 
-                                        @endforeach
-                                            @endif
-                                    </p>
+                                    @endforeach
+
 
                                     <br>
-
+                                @endif
                             @endforeach
 
                             <br>
