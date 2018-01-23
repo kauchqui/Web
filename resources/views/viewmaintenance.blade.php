@@ -36,10 +36,12 @@
                                                     @if($request->unit_id === $unit ->id && $unit->building_id === $building->id && $building->property_id === $property->id)
                                                         @if($request->status == false)
                                                             <tr>
-                                                                <td><a href="{{ route('manageunit',['id' => $unit->id]) }}"> {{$unit->name}}</a></td>
+                                                                <td><a href="{{ route('report',['id' => $request->id])
+                                                                }}">
+                                                                        {{$unit->name}}</a></td>
                                                                 <td><a href="{{ route('manageunit',['id' => $unit->id]) }}">{{$request->maintenance}}</a></td>
                                                                 <td><a>{{$contact = DB::table('users')
-                                                                ->where('personalunit','$unit->id')->pluck('email')}}
+                                                                ->where('personalunit',$unit->id)->pluck('email')}}
                                                                     </a></td>
                                                             </tr>
                                                         @endif
