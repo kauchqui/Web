@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Input;
 
 //Testing
 
-Route::get('/appliances', function(){
-    return view('threads.TestAppl');
-});
+//Route::get('/appliances', function(){
+//    return view('threads.TestAppl');
+//});
 
 Route::get('report/{id}', 'ReportController@generate')->name('report');
+
+Route::post('/report/{id}', 'ReportController@resolveReport')->name('resolveReport');
 
 
 //

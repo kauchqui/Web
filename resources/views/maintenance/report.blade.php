@@ -6,35 +6,31 @@
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-8">
                 <div class="card">
+                    @php($name = DB::table('units')
+                                ->where('id','=',$reportinfo->unit_id)->first())
                     <div class="card-header">
-                        Report for Unit {{$reportinfo->unit_id}}
+                        <h5>Report for Unit {{$name->name}}</h5>
                     </div>
                     <div class="card-body">
-                        <form role="form" method="POST" action="{{ url('/register') }}">
-                            {!! csrf_field() !!}
+                        {{--<form role="form" method="POST" action="{{route('resolveReport')}}">--}}
+                        <form role="form" method="POST" action="{{ route('report',['id' => $reportinfo->id])}}">
+
+                            {{ csrf_field() }}
 
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label text-lg-right">Unit Name</label>
 
-                                <div class="col-lg-6">
-                                    <input>
-                                </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label text-lg-right">Issue</label>
-
-                                <div class="col-lg-6">
-                                    <input>
-
-                                </div>
+                                <label class="col-lg-4 col-form-label text-lg-right">Issue:
+                                    {{$reportinfo->maintenance}}</label>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label text-lg-right">Issue Description</label>
 
                                 <div class="col-lg-6">
-                                    <input>
+                                    <input type="text" class="form-control" id="inputDesc" name="inputDesc">
                                 </div>
                             </div>
 
@@ -44,9 +40,9 @@
 
                                 <div class="col-lg-6">
 
-                                    <textarea>
+                                    <textarea type="text" class="form-control" id="inputReport"
+                                              name="inputReport"></textarea>
 
-                                </textarea>
                                 </div>
                             </div>
 
