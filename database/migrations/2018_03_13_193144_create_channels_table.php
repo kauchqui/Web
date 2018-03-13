@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRequestTable extends Migration
+class CreateChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class AddRequestTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('unit_id');
-            $table->string('renter')->default("Not entered");
-            $table->string('maintenance')->default("No maintenance is currently needed");
-            $table->boolean('status')->default(true);
+            $table->string('name', 50);
+            $table->string('slug',50);
             $table->timestamps();
-             });
+        });
     }
 
     /**
@@ -30,6 +28,6 @@ class AddRequestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('channels');
     }
 }

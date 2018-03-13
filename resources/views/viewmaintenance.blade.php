@@ -2,9 +2,14 @@
 
 @section('content')
     @php($auth = Auth::user()->permissions)
+    {{--todo fix the $properties query--}}
     @if($auth == 3)
         @php($staff = Auth::user())
-        @php($properties = DB::table('properties')->where('id',"$staff->personalproperty")->get())
+        @php($properties = DB::table('assignedproperty')->where('id',"1")->orWhere('id','=','2')->get())
+
+{{--
+        @php($properties = DB::table('properties')->join('assignedproperty','assignedproperty.property_id','=','properties.id')->where('assignedproperty.user_id',"$staff->id")->get())
+--}}
         @endif
 
     <div class="container">

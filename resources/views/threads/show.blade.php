@@ -6,6 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+                        <a href="#">{{$thread->creator->name}}</a> posted:
                         {{$thread->title}}
                     </div>
                     <div class="card-body">
@@ -14,9 +15,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-8">
                 @foreach($thread->replies as $reply)
@@ -26,5 +24,23 @@
                 @endforeach
             </div>
         </div>
+        @if(auth()->check())
+
+                <div class = "row justify-content-md-center mt-5">
+                    <div class="col-md-8">
+                    <form method="POST" action="{{$thread->path()}}">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="body">Body:</label>
+                            <textarea name="body" id = "body"class="form-control"placeholder="What's on your mind?"rows = "5"></textarea>
+                        </div>
+
+                        <button type="submit"class="btn btn-default">Post</button>
+                    </form>
+                    </div>
+                </div>
+
+            @else <p><a href="{{route('login')}}">Sign in</a> to participate</p>
+            @endif
     </div>
 @endsection

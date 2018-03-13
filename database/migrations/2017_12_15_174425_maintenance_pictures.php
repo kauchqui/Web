@@ -29,6 +29,6 @@ class MaintenancePictures extends Migration
      */
     public function down()
     {
-        Schema::drop(maintenancepictures);
+        Schema::dropIfExists('maintenancepictures');
     }
 }
