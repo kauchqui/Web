@@ -4,20 +4,20 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 bg-light">
-                <div class="panel panel-default border border-primary" >
-                <div class="panel-heading">
-                    <h1>Basic Property Information</h1>
-                </div>
-                <div class="panel-body">
-                <span class="w3-tag w3-small w3-theme-d5">Property Name: {{$property->name}}</span>
+        <div class="row justify-content-md-center mt-5">
+            <div class="col-md-8">
+                <div class="card" >
+                    <div class="card-header">
+                    <h3>Basic Property Information</h3>
+                    </div>
+                <div class="card-body">
+                <span>Property Name: {{$property->name}}</span>
                 <br>
-                <span class="w3-tag w3-small w3-theme-d5">Property Address: {{$property->address}}</span>
+                <span>Property Address: {{$property->address}}</span>
                 <br>
-                <span class="w3-tag w3-small w3-theme-d5">Property Owner: {{$property->owner}}</span>
+                <span>Property Owner: {{$property->owner}}</span>
                 <br>
-                <h1>Buildings</h1>
+                <h2>Buildings</h2>
 
                 @php ($buildings =  DB::table('buildings')->get())
                 @foreach ($buildings as $building)
@@ -28,6 +28,8 @@
                 @endforeach
                     <br>
                 <a href="{{ url('addbuilding',['id' => $property->id]) }}" class="btn btn-info"> Add a Building >></a>
+
+                    {{--<a href="{{ route('enroll')}}" class="btn btn-info">  Add new Maintenance Staff >></a>--}}
                 </div>
                 </div>
             </div>

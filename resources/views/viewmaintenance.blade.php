@@ -1,41 +1,71 @@
 @extends('layouts.app')
 
 @section('content')
+    @php($auth = Auth::user()->permissions)
+    {{--todo fix the $properties query--}}
+    @if($auth == 3)
+        @php($staff = Auth::user())
+        @php($properties = DB::table('assignedproperty')->where('id',"1")->orWhere('id','=','2')->get())
+
+{{--
+        @php($properties = DB::table('properties')->join('assignedproperty','assignedproperty.property_id','=','properties.id')->where('assignedproperty.user_id',"$staff->id")->get())
+--}}
+        @endif
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Maintenance Requests</div>
-                        <div class="panel-body">
-                            @foreach($properties as $property)
-                                <p style="font-size:160%;">Property: {{$property->name}} </p>
-                                    @foreach($buildings as $building)
-                                        @if($building->property_id === $property->id)
-                                        <p style="font-size:120%;"> {{$building->name}} </p>
-                                        @endif
+        <div class="row justify-content-md-center mt-5">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Maintenance Requests</div>
+                    <div class="card-body">
+                        @foreach($properties as $property)
+                            <p style="font-size:160%;">Property: {{$property->name}} </p>
+                            <hr>
+                            @foreach($buildings as $building)
+                                @php($reqcount = DB::table('units')->where('building_id',"$building->id")->count())
+                                @if($building->property_id === $property->id && $reqcount != 0)
+                                    <p style="font-size:120%;"> {{$building->name}} </p>
+
+                                    <div class="table table-responsive" style="overflow-y:auto;">
+                                        <table class="table table-striped">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th>Unit Number</th>
+                                                <th>Request</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             @foreach($units as $unit)
-
-                                                   @foreach($requests as $request)
-                                                        @if($request->unit_id === $unit ->id && $unit->building_id === $building->id && $building->property_id === $property->id)
-                                                            @if($request->status == false)
-                                                            <a href="{{ route('manageunit',['id' => $unit->id]) }}"> {{$unit->name}}: {{$request->maintenance}} {{"-------requests unresolved"}} </a>
-                                                                <br>
-                                                                {{--@else
-                                                                <a href="{{ route('manageunit',['id' => $request->id]) }}"> {{$unit->name}}: {{$request->maintenance}} {{"------requests resolved"}} </a>
-                                                                <br>--}}
-                                                            @endif
+                                                @foreach($requests as $request)
+                                                    @if($request->unit_id === $unit ->id && $unit->building_id === $building->id && $building->property_id === $property->id)
+                                                        @if($request->status == false)
+                                                            <tr>
+                                                                <td><a href="{{ route('report',['id' => $request->id])
+                                                                }}">
+                                                                        {{$unit->name}}</a></td>
+                                                                <td><a href="{{ route('manageunit',['id' => $unit->id]) }}">{{$request->maintenance}}</a></td>
+                                                                <td><a>{{$contact = DB::table('users')
+                                                                ->where('personalunit',$unit->id)->pluck('email')}}
+                                                                    </a></td>
+                                                            </tr>
                                                         @endif
-                                                   @endforeach
-
+                                                    @endif
+                                                @endforeach
                                             @endforeach
-                                    @endforeach
-                                    <br>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                @endif
+
                             @endforeach
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 @endsection
 
 

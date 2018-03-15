@@ -26,7 +26,7 @@ class UserHomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     /*public function index(Request $request)
-    {
+    {d
 
         $propertyid = 1;
 
@@ -56,13 +56,15 @@ class UserHomeController extends Controller
 
         $user->save();
 
-        return redirect('userhome');
+        return redirect('home');
 
     }
     public function myform()
     {
-        $properties = DB::table('properties')->pluck("name","id")->all();
-        return view('homeUser',compact('properties'));
+        $user = Auth::user();
+
+        $properties = DB::table('properties')->where('user_id', '=',$user->id)->pluck("name","id")->all();
+        return view('home',compact('properties'));
     }
 
 
@@ -75,15 +77,22 @@ class UserHomeController extends Controller
     {
         if($request->ajax()){
             $buildings = DB::table('buildings')->where('property_id',$request->property_id)->pluck("name","id")->all();
-            $data = view('building-select',compact('buildings'))->render();
+            try {
+                $data = view('building-select', compact('buildings'))->render();
+            } catch (\Throwable $e) {
+            }
             return response()->json(['options'=>$data]);
         }
     }
+
     public function selectUnit(Request $request)
     {
         if($request->ajax()){
             $units = DB::table('units')->where('building_id',$request->building_id)->pluck("name","id")->all();
-            $data = view('unit-select',compact('units'))->render();
+            try {
+                $data = view('unit-select', compact('units'))->render();
+            } catch (\Throwable $e) {
+            }
             return response()->json(['options'=>$data]);
         }
     }

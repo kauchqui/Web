@@ -2,12 +2,14 @@
 
 @section('content')
     <div class="container">
-        <div class="row" bg-light>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">New Building for {{$property->name}}</div>
+        <div class="row justify-content-md-center mt-5">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        New Building for {{$property->name}}
+                    </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         <form class="form-horizontal" method="POST"
                               action="{{ route('updateBuilding',$property->id) }}">
                             {{ csrf_field() }}
@@ -40,7 +42,7 @@
                             {{--</div>--}}
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="container">
                                     <button type="submit" class="btn btn-primary">
                                         Submit Building
                                     </button>

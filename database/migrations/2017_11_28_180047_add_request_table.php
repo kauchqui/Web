@@ -30,6 +30,6 @@ class AddRequestTable extends Migration
      */
     public function down()
     {
-        Schema::drop(requests);
+        Schema::dropIfExists('requests');
     }
 }

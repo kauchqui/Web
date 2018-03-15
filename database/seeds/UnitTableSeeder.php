@@ -11,12 +11,13 @@ class UnitTableSeeder extends Seeder
      */
     public function run() // this is super dirty db populater for Units
     {
-        $count = 0;
-        while ($count <= 100) {
+        $exist = DB::table('units')->max('id');
+        $count = 1;
+        while ($count <= 1742) {
             DB::table('units')->insert([
-                'id' => rand(2, 1000),
-                'building_id' => '1',
-                'name' => str_random(2) . '0' . random_int(0, 9),
+                'id' => $count + $exist,
+                'building_id' => random_int(1,2), //randomly assign to building 1 or 2, can modify for testing
+                'name' => random_int(0, 9).random_int(0,4) . '0' . random_int(0, 9),
                 'renter' => 'emorystudent' . str_random(2),
                 'file' => str_random(10),
                 'maintenance' => str_random(10),

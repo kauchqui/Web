@@ -1,33 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{ config('app.name', 'Laravel') }}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-</head>
-<style>
-    html, body {min-height: 100%;}
-</style>
-<nav class="navbar navbar-default navbar-fixed-top">
-<!-- Navbar -->p
-<div class="w3-top  w3-margin-bottom" id="Navbar">
-    <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-        <a href="{{ url('/') }}" class="w3-left w3-bar-item w3-button"><img src="ManageIT.jpg" height="35px" width="35px" alt="ITManage"/></a>
-        <meta charset="UTF-8">
-        <div class="w3-display-middle">
-            <a href="" class="w3-bar-item w3-button">About</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                @if (Auth::guest())
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
 
-            <a href="contact.html" class="w3-bar-item w3-button">Contact</a>
-            <a href="{{ route('home') }}" class="w3-bar-item w3-button">Profile</a>
-            <a href="carousel.blade.php" class="w3-bar-item w3-button">Carousel Example</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                  style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                            <a href="{{ route('home') }}" class="dropdown-item">
+                                Dashboard
+                            </a>
+
+                        </div>
+                    </li>
+                @endif
+            </ul>
         </div>
-        <a href="{{ route('login') }}" class="w3-border-left w3-bar-item w3-button w3-display-right"><b>LOGIN</b></a>
-    </div>
-</div>
-</nav>
 
-</html>
+    </div>
+</nav>

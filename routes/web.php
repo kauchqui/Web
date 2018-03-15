@@ -13,13 +13,32 @@
 
 use Illuminate\Support\Facades\Input;
 
+
+
+//Testing
+
+//Route::get('/appliances', function(){
+//    return view('threads.TestAppl');
+//});
+
+Route::get('report/{id}', 'ReportController@generate')->name('report');
+
+Route::post('/report/{id}', 'ReportController@resolveReport')->name('resolveReport');
+
+
+//
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/send','AboutEmailController@sendEmail',function(){
+    return view('about');
+})->name('sendEmail');
+
 Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
 
 Route::get('/profile', function () {
     return view('profile');
@@ -48,7 +67,8 @@ Route::get('expenses/{id}', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', 'UserHomeController@myform')->name('home');
 
 Route::get('/userhome', 'UserHomeController@myform')->name('homeUser');
 
@@ -96,6 +116,18 @@ Route::get('/changeProfile', 'ChangeProfile@create')->name('changeProfile');
 
 Route::post('/changeProfile', 'ChangeProfile@up')->name('changeProfilePicture');
 
+Route::get('/userUpdate/{user}', 'ManageUser@create')->name('ManageUserForm');
 
+Route::get('/deleteUser/{user}', 'ManageUser@delete')->name('DeleteUser');
 
+Route::post('/updateUser/{user}', 'updateUser@update')->name('updateUser');
 
+Route::post('/threads/{channel}/{thread}', 'ReplyController@store');
+
+Route::post('/threads','ThreadController@store');
+
+Route::get('/threads/create', 'ThreadController@create');
+
+Route::get('/threads/{channel}/{thread}','ThreadController@show')->name('threads');
+
+Route::get('/threads','ThreadController@index')->name('threads');

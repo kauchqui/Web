@@ -42,9 +42,7 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        if (Auth::user()->permissions === 1) {
+//        all users use same home
             return redirect('/home');
-        }
-        return redirect('userhome');
     }
 }
