@@ -14,8 +14,8 @@ class Thread extends Model
     {
         return $this->belongsTo('app\User');
     }
-    public function path(){
 
+    public function path(){
         return '/threads/'. $this->channel->slug . '/' . $this->id;
     }
     public function replies(){

@@ -26,6 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('threads') }}">Forum</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"href="#">DeadLink</a>
+                        </li>
                     @endif
                     @if($auth == 2)
                         <li class="nav-item">
