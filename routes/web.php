@@ -121,6 +121,8 @@ Route::get('/deleteUser/{user}', 'ManageUser@delete')->name('DeleteUser');
 
 Route::post('/updateUser/{user}', 'updateUser@update')->name('updateUser');
 
+/*Threads section*/
+
 Route::post('/threads/{channel}/{thread}', 'ReplyController@store');
 
 Route::post('/threads','ThreadController@store');
@@ -130,3 +132,5 @@ Route::get('/threads/create', 'ThreadController@create');
 Route::get('/threads/{channel}/{thread}','ThreadController@show')->name('threads');
 
 Route::get('/threads','ThreadController@index')->name('threads');
+
+Route::get('threads/{channel}','ThreadController@index');
