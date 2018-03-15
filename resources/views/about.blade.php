@@ -187,6 +187,12 @@
                 <span class="w3-large">Quintin Kauchick: Current student at Emory University and Co-Founder of ManageIT.</span><br>
             </div>
         </li>
+        <li class="w3-bar">
+            <img src={{asset('img/avatar4.png')}} class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+            <div class="w3-bar-item">
+                <span class="w3-large">Nicholas Wise: Current student at University of South Florida.</span><br>
+            </div>
+        </li>
 
     </ul>
 </div>
